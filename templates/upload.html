@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Upload</title>
+<link rel="stylesheet" href="/static?file=style.css"></head>
+<body>
+<div id="box">
+<div id="menu"><a href="/">Download</a> / Upload</div>
+
+{.section Body} 
+	<p>{Body}</p>
+{.or}
+	<form method='POST' enctype='multipart/form-data' action='/upload'> 
+	<input type=file name=upfile > <br> 
+	<br> 
+	<input type=submit value=Upload!> 
+	</form>
+{.end}
+
+</div>
+</body>
+</html>

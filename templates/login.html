@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="/static?file=style.css"></head>
+<body>
+<div id="box">
+<div id="menu">Login</div>
+
+{.section Body}
+		<p>{Body}</p>
+		<p><a href="/">Home</a>
+	{.or}
+		<form method='POST' action='/login'> 
+		<input type=password name=password > <br> 
+		<br> 
+		<input type=submit value=Login> 
+		</form>  
+{.end}
+</div>
+</body>
+</html>
