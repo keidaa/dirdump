@@ -10,7 +10,7 @@ import (
 var (
 	password = flag.String("pwd", "", "Password to upload/download files")
 	// IP:pwdok
-	loggedIn  = make(map[string]bool)
+	loggedIn  = ""
 	rootDir   = ""
 	filesDir  = ""
 	tmplDir   = ""
@@ -51,9 +51,6 @@ func dispatch(w http.ResponseWriter, req *http.Request) {
 	p := new(page)
 	ok := true
 
-	if *password != "" {
-		_, ok = loggedIn[req.RemoteAddr]
-	}
 
 	if ok {
 		p, err = loadPage(req, pageName)

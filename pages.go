@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"mime"
 	"path"
-//	"time"
+	//	"time"
 )
 
 type page struct {
@@ -53,7 +53,7 @@ func (p *page) serve(w http.ResponseWriter) os.Error {
 		}
 		w.Header().Set("Content-Type", ctype)
 		w.Header().Set("Content-Length", strconv.Itoa64(fs.Size))
-		w.Header().Set("Content-Disposition", "attachment; filename="+p.filename)
+		w.Header().Set("Content-Disposition", "inline; filename="+p.filename)
 		io.Copy(w, file)
 		return nil
 	}
@@ -93,11 +93,12 @@ func upload(req *http.Request) (*page, os.Error) {
 	if err != nil {
 		return nil, err
 	} else {
-		file, err := os.Create(fh.Filename)
+		file, err := os.Create(filesDir + "/" + fh.Filename)
 
 		if err != nil {
 			return nil, err
 		} else {
+
 			io.Copy(file, f)
 			file.Close()
 			p.html["Body"] = fh.Filename + " uploaded!"
@@ -118,7 +119,7 @@ func login(req *http.Request) (*page, os.Error) {
 	pwd := req.FormValue("password")
 	if pwd == *password {
 		p.html["Body"] = "Logged in!"
-		loggedIn[req.RemoteAddr] = true
+		// TODO: save login
 	} else {
 		p.html["Body"] = "Login failed!"
 	}
@@ -127,14 +128,6 @@ func login(req *http.Request) (*page, os.Error) {
 }
 
 func index(req *http.Request) (*page, os.Error) {
-	println(test)
-	if test {
-		test = false
-	//	select{}
-		//time.Sleep(5000000000)
-	}
-	println()
-
 	var p page
 	p.template = "index.html"
 	p.html = make(map[string]interface{})
